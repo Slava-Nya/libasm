@@ -14,6 +14,10 @@ INC = $(addprefix -I, $(INC_PATH))
 SRC_NAME =				\
 			ft_strlen.s \
 			ft_strcpy.s	\
+			ft_strcmp.s	\
+			ft_write.s	\
+			ft_read.s	\
+			ft_strdup.s	\
 
 OBJ_NAME = $(SRC_NAME:.s=.o)
 
@@ -35,5 +39,6 @@ clean:
 fclean: clean
 	/bin/rm -rf $(OBJ_PATH)
 	/bin/rm -f $(NAME)
+	/bin/rm -f test
 
 re: fclean all

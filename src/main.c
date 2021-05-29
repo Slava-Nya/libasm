@@ -82,7 +82,7 @@ void check_strcpy()
 	// clear_buffer(buffer, 30);
 	// printf("\n");
 }
-/*
+
 void check_strcmp()
 {
 	char *empty = "";
@@ -246,13 +246,13 @@ void check_strdup()
 	// save2 = NULL;
 	// printf("\n");
 }
-*/
+
 int main()
 {
 	check_strlen();
 	check_strcpy();
-//	check_strcmp();
-//	check_write();
-//	check_read();
-//	check_strdup();
+	check_strcmp();
+	check_write();
+	check_read();
+	check_strdup();
 }
