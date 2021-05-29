@@ -11,8 +11,9 @@ SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 INC = $(addprefix -I, $(INC_PATH))
 
-SRC_NAME =						\
+SRC_NAME =				\
 			ft_strlen.s \
+			ft_strcpy.s	\
 
 OBJ_NAME = $(SRC_NAME:.s=.o)
 

@@ -32,7 +32,7 @@ void check_strlen()
 	// printf("%-20s: %zu\n", "libasm", ft_strlen(NULL));
 	// printf("\n");
 }
-/*
+
 void clear_buffer(char *buffer, int size)
 {
 	int i = 0;
@@ -82,7 +82,7 @@ void check_strcpy()
 	// clear_buffer(buffer, 30);
 	// printf("\n");
 }
-
+/*
 void check_strcmp()
 {
 	char *empty = "";
@@ -250,7 +250,7 @@ void check_strdup()
 int main()
 {
 	check_strlen();
-//	check_strcpy();
+	check_strcpy();
 //	check_strcmp();
 //	check_write();
 //	check_read();
