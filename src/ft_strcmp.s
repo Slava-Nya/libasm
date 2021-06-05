@@ -1,25 +1,29 @@
+global	_ft_strcmp
 section .text
-    global _ft_strcmp
+_ft_strcmp:
+	push	r8
+	push	rdx
+	push	rcx
+	mov		r8, 0
+	mov		rax, 0
+	mov		rdx, 0
+	mov		rcx, 0
+.loop:
+	mov		dl, byte [rdi + r8]
+	mov		cl, byte [rsi + r8]
+	cmp		dl, 0
+	je		.return
+	cmp		cl, 0
+	je		.return
+	cmp		dl, cl
+	jne		.return
+	inc		r8
+	jmp		.loop
 
-_ft_strcmp: ;int    ft_strcmp(char const *s1, char const *s2);
-    mov     rax, 0
-    jmp     .CMPR
-
-    .CMPR:
-    mov     al, byte[rdi]
-    mov     bl, byte[rsi]
-    cmp     al, 0
-    je      .return
-    cmp     bl, 0
-    je      .return
-    cmp     al, bl
-    jne     .return
-    inc     rdi
-    inc     rsi
-    jmp     .CMPR
-
-    .return
-    movzx   rax, al
-    movzx   rbx, bl
-    sub     rax, rbx    ; rax = (unsigned char)s1[i] - (unsigned char)s2[i])
-    ret
+.return:
+	sub		rdx, rcx
+	mov		rax, rdx
+	pop		rcx
+	pop		rdx
+	pop		r8
+	ret

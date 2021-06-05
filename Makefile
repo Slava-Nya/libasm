@@ -31,7 +31,7 @@ $(NAME): $(OBJ)
 	ar rcs $(NAME) $(OBJ)
 
 test:
-	gcc -I./libasm.h libasm.a src/main.c -o test
+	gcc -I./libasm.h libasm.a ./main.c -o test
 
 clean: 
 	/bin/rm -rf $(OBJ_PATH)

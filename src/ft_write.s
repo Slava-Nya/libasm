@@ -1,17 +1,18 @@
-section .text
-    global _ft_write ; ft_write (rdi, rsi, rdx)
+	section .text
+	global _ft_write
+	extern ___error
 
-_ft_write:  ;ssize_t    ft_write(int fd, void const *buf, size_t nbyte);
-    mov     r8, rdx
-    mov     rax, 0x2000004 ;кладем в rax системный код write
-    syscall
-    jc      .return_error
-    jmp     .return
+_ft_write:
+	mov rax, 0x02000004
+	syscall
+	jc error
+	ret
 
-.return_error:
-    mov     rax, -1
-    ret
-
-.return:
-    mov     rax, r8
-    ret
+error:
+	mov rdx, rax
+	push rdx
+	call ___error
+	pop rdx
+	mov [rax], rdx
+	mov rax, -1
+	ret

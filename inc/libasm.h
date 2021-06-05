@@ -6,6 +6,8 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <sys/types.h>
+# include <stdlib.h>
 
 size_t		ft_strlen(char const *str);
 char		*ft_strcpy(char *dst, char const *src);
