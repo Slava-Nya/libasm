@@ -1,18 +1,18 @@
-global	_ft_read
-extern	___error
-
 section .text
-_ft_read:
-	mov		rax, 0x02000003
-	syscall
-	jc		.error
+    global ft_read
+    extern __errno_location
+
+ft_read:
+    mov rax, 0
+    syscall
+    cmp rax, 0
+	jl .lerr
 	ret
 
-.error:
-	push	r8
-	mov		r8, rax
-	call	___error
-	mov		[rax], r8
-	mov		rax, -1
-	pop		r8
+.lerr:
+    neg rax
+	mov rdx, rax
+	call [rel __errno_location wrt ..got]
+	mov [rax], rdx
+	mov rax, -1
 	ret

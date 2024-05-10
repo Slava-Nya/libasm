@@ -1,26 +1,22 @@
 section .text
-    global _ft_strlen   ; запуск линкера
+    global ft_strlen        ; run linker
 
- _ft_strlen:    ;size_t		ft_strlen(char const *str);
-    mov     rax, 0 ; копируем 0 в регистр rax(регистр аккумулятор, общее назначение)
+ ft_strlen:                 ; size_t ft_strlen(char const *str);
+    mov     rax, 0          ; copy 0 in rax register
 
     .loop: ; цикл
-    cmp     byte [rdi + rax],0  ; аналог while (str[i]), rdi - регистр данных для промежут. значений
-    je      .return ; jump to return if equal 0  (если находим 0, ретерним значение ret)
-    inc     rax ; инкрементнируем rax
-    jmp     .loop ; jump в новую итерацию цикла
+    cmp     byte [rdi + rax],0
+    je      .return         ; jump to return if equal 0
+    inc     rax
+    jmp     .loop
 
     .return:
-    ret ;вернуть rax
+    ret                     ; return rax
 
-; rdi - первый аргумент
-; rsi - второй аргумент
-; rdx - третий аргумент
-; rcx - четвёртый аргумент
-; r8 - пятый аргумент
-; r9 - шестой аргумент
-
-; rsp указывает на вершину стека,
-; rcx играет роль счетчика,
-; а в rax записывается
-; результат выполнения операции или процедуры
+; rdi - 1 argument
+; rsi - 2 argument
+; rdx - 3 argument
+; rcx - 4 argument
+; r8 - 5 argument
+; r9 - 6 argument
+; rsp - Points to the top of the stack 

@@ -1,44 +1,55 @@
+INC_DIR		:= inc
 
-.PHONY: all, $(NAME), norm, clean, fclean, re
+SRC_DIR		:= src
+SRCS		:= ft_strlen.s	\
+			   ft_strcpy.s	\
+			   ft_strcmp.s	\
+			   ft_write.s	\
+			   ft_read.s		\
+			   ft_strdup.s
 
-NAME = libasm.a
+OBJ_DIR 	:= obj
+OBJS		:= $(addprefix $(OBJ_DIR)/,$(SRCS:.s=.o))
 
-SRC_PATH = ./src/
-OBJ_PATH = ./obj/
-INC_PATH = ./inc/
+NAME		:= libasm.a
 
-SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
-OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
-INC = $(addprefix -I, $(INC_PATH))
-
-SRC_NAME =				\
-			ft_strlen.s \
-			ft_strcpy.s	\
-			ft_strcmp.s	\
-			ft_write.s	\
-			ft_read.s	\
-			ft_strdup.s	\
-
-OBJ_NAME = $(SRC_NAME:.s=.o)
+.PHONY: all clean fclean re test bonus
 
 all: $(NAME)
 
-$(OBJ_PATH)%.o: $(SRC_PATH)%.s
-	mkdir -p $(OBJ_PATH)
-	nasm -f macho64 -o $@ $<
+$(OBJ_DIR):
+	mkdir -p $(OBJ_DIR)
 
-$(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.s
+	nasm -f elf64 -MD $(patsubst %.o,%.d,$@) -o $@ $<
 
-test:
-	gcc -I./libasm.h libasm.a ./main.c -o test
+$(NAME): $(OBJ_DIR) $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
-clean: 
-	/bin/rm -rf $(OBJ_PATH)
+
+TEST_OBJ_DIR	:= $(OBJ_DIR)
+TEST_SRCS		:=	main.c
+TEST_OBJS		:= $(addprefix $(TEST_OBJ_DIR)/,$(TEST_SRCS:.c=.o))
+TEST_NAME		:= test_run
+
+LFLAGS			:= -L . -l asm
+INC_FLAGS		:= $(addprefix -I ,$(INC_DIR))
+
+$(TEST_OBJ_DIR):
+	mkdir -p $(TEST_OBJ_DIR)
+
+$(TEST_OBJ_DIR)/%.o: %.c
+	gcc $(INC_FLAGS) -MMD -o $@ -c $<
+
+test: $(NAME) $(TEST_OBJ_DIR) $(TEST_OBJS)
+	gcc -o $(TEST_NAME) $(TEST_OBJS) $(LFLAGS)
+	./$(TEST_NAME)
+
+clean:
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	/bin/rm -rf $(OBJ_PATH)
-	/bin/rm -f $(NAME)
-	/bin/rm -f test
+	rm -f $(NAME)
+	rm -f $(TEST_NAME)
 
 re: fclean all

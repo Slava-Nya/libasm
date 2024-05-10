@@ -1,7 +1,7 @@
 section .text
-    global _ft_strcpy
+    global ft_strcpy
 
-_ft_strcpy: ;char	*ft_strcpy(char *dst, char const *src)
+ft_strcpy: ;char	*ft_strcpy(char *dst, char const *src)
     mov     rax, rdi
     mov     rdx, 0
 
